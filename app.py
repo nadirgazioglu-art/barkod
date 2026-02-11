@@ -23,7 +23,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 APP_DIR = os.path.dirname(os.path.abspath(__file__))
 DB_PATH = os.path.join(APP_DIR, "barkod.db")
-BASE_PATH = os.getenv("BASE_PATH", "/barkod").strip() or "/"
+BASE_PATH = os.getenv("BASE_PATH", "/").strip() or "/"
 if not BASE_PATH.startswith("/"):
     BASE_PATH = "/" + BASE_PATH
 if BASE_PATH != "/" and BASE_PATH.endswith("/"):

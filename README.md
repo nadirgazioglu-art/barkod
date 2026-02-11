@@ -11,21 +11,24 @@ pip install -r requirements.txt
 python app.py
 ```
 
-## Hostixo / `/barkod` klasöründe yayınlama
+## Hostixo dosya yapısı (tek klasör: `/barkod`)
 
-Bu uygulama `BASE_PATH=/barkod` ile gelir. Bu yüzden aşağıdaki gibi çalışır:
+Uygulama, domain kökü **zaten `/barkod` klasörüne bağlıymış gibi** çalışacak şekilde ayarlandı.
 
-- Login: `https://barkod.atexyangin.com.tr/barkod/login`
-- Dashboard: `https://barkod.atexyangin.com.tr/barkod/dashboard`
-- QR kontrol: `https://barkod.atexyangin.com.tr/barkod/check/<token>`
+Beklenen davranış:
 
-Eğer domain kökünden çalıştıracaksanız:
+- `https://barkod.atexyangin.com.tr` → direkt login
+- `https://barkod.atexyangin.com.tr/login` → login
+- `https://barkod.atexyangin.com.tr/dashboard` → dashboard
+- `https://barkod.atexyangin.com.tr/check/<token>` → QR doğrulama
 
-```bash
-export BASE_PATH=/
-```
+Ek uyumluluk dosyaları da eklendi:
 
-Passenger / WSGI için giriş dosyası: `wsgi.py` (`application = app`).
+- `index.php` → `/login` yönlendirir
+- `login.php` ve `login.html` → `/login` yönlendirir
+- `dashboard.php` ve `dashboard.html` → `/dashboard` yönlendirir
+
+> Not: Eski `/barkod/...` prefix zorunluluğu kaldırıldı. Gerekirse tekrar `BASE_PATH` env ile farklı prefix verilebilir.
 
 ## İlk giriş
 
