@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="grid lg:grid-cols-3 gap-4">
+  <form method="post" class="bg-white shadow rounded p-4 space-y-2">
+    <h2 class="font-semibold">Yeni Müşteri</h2>
+    <input name="name" placeholder="Firma adı" class="w-full border rounded px-2 py-1" required>
+    <input name="contact_name" placeholder="Yetkili" class="w-full border rounded px-2 py-1">
+    <input name="phone" placeholder="Telefon" class="w-full border rounded px-2 py-1">
+    <input name="email" placeholder="E-posta" class="w-full border rounded px-2 py-1">
+    <textarea name="address" placeholder="Adres" class="w-full border rounded px-2 py-1"></textarea>
+    <textarea name="note" placeholder="Not" class="w-full border rounded px-2 py-1"></textarea>
+    <button class="bg-slate-900 text-white px-4 py-2 rounded">Kaydet</button>
+  </form>
+  <section class="lg:col-span-2 bg-white shadow rounded p-4">
+    <h2 class="font-semibold mb-2">Müşteri Listesi</h2>
+    <table class="w-full text-sm"><tr class="border-b"><th class="text-left">Firma</th><th>Telefon</th><th></th></tr>
+      {% for row in customers %}
+      <tr class="border-b"><td>{{ row.name }}</td><td>{{ row.phone }}</td><td><a class="text-blue-600" href="{{ url_for('customer_detail', customer_id=row.id) }}">Detay</a></td></tr>
+      {% endfor %}
+    </table>
+  </section>
+</div>
+{% endblock %}

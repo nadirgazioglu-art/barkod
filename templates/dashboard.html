@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="flex items-center justify-between mb-6">
+  <div>
+    <h1 class="text-3xl font-bold text-slate-900">Yönetim Paneli</h1>
+    <p class="text-slate-500">Operasyon özetleri, yaklaşan kritik tarihler ve son doğrulatmalar.</p>
+  </div>
+</div>
+
+<div class="grid md:grid-cols-3 gap-4 mb-6">
+  <div class="rounded-2xl bg-white shadow-soft p-5 border border-slate-200">
+    <p class="text-sm text-slate-500">Toplam Müşteri</p>
+    <p class="text-3xl font-bold mt-1">{{ counts.customers }}</p>
+  </div>
+  <div class="rounded-2xl bg-white shadow-soft p-5 border border-slate-200">
+    <p class="text-sm text-slate-500">Toplam Etiket</p>
+    <p class="text-3xl font-bold mt-1">{{ counts.labels }}</p>
+  </div>
+  <div class="rounded-2xl bg-white shadow-soft p-5 border border-slate-200">
+    <p class="text-sm text-slate-500">Aktif Etiket</p>
+    <p class="text-3xl font-bold mt-1 text-emerald-700">{{ counts.active_labels }}</p>
+  </div>
+</div>
+
+<div class="grid lg:grid-cols-2 gap-5">
+  <section class="bg-white rounded-2xl shadow-soft p-5 border border-slate-200">
+    <h2 class="font-semibold mb-3">Yaklaşan Tarihler ({{ settings.alert_months }} ay)</h2>
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm">
+        <tr class="text-left border-b border-slate-200"><th class="py-2">Müşteri</th><th>Seri</th><th>Dolum</th><th>Test</th><th>SKT</th></tr>
+        {% for row in upcoming %}
+        <tr class="border-b border-slate-100"><td class="py-2">{{ row.customer_name }}</td><td>{{ row.serial_no }}</td><td>{{ row.next_fill_date }}</td><td>{{ row.next_test_date }}</td><td>{{ row.expiry_date }}</td></tr>
+        {% else %}<tr><td colspan="5" class="py-4 text-slate-500">Kayıt yok.</td></tr>{% endfor %}
+      </table>
+    </div>
+  </section>
+
+  <section class="bg-white rounded-2xl shadow-soft p-5 border border-slate-200">
+    <h2 class="font-semibold mb-3">Son Doğrulatmalar</h2>
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm">
+        <tr class="text-left border-b border-slate-200"><th class="py-2">Tarih</th><th>Müşteri</th><th>Seri</th><th>IP</th></tr>
+        {% for row in recent %}
+        <tr class="border-b border-slate-100"><td class="py-2">{{ row.verified_at }}</td><td>{{ row.customer_name }}</td><td>{{ row.serial_no }}</td><td>{{ row.ip_address }}</td></tr>
+        {% else %}<tr><td colspan="4" class="py-4 text-slate-500">Henüz doğrulatma yok.</td></tr>{% endfor %}
+      </table>
+    </div>
+  </section>
+</div>
+
+<form method="post" action="{{ url_for('reset_demo_data') }}" class="mt-6">
+  <button class="rounded-xl bg-red-600 hover:bg-red-700 text-white px-4 py-2">Test Verilerini Sıfırla</button>
+</form>
+{% endblock %}

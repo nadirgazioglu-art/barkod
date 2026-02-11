@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ title or 'Atex Yangın Barkod' }}</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              900: '#0b1220',
+              800: '#111d33',
+              700: '#1c2f4f'
+            }
+          },
+          boxShadow: {
+            soft: '0 10px 35px -18px rgba(15, 23, 42, .45)'
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="min-h-screen bg-slate-100 text-slate-800">
+  {% if session.user_id %}
+  <nav class="bg-gradient-to-r from-brand-900 via-brand-800 to-slate-900 text-slate-100 shadow-soft">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <div class="h-9 w-9 rounded-lg bg-white/10 grid place-items-center font-bold">AY</div>
+        <div>
+          <p class="text-xs text-slate-300 tracking-wide">Kurumsal Etiket Takip</p>
+          <p class="font-semibold">Atex Yangın Barkod Sistemi</p>
+        </div>
+      </div>
+      <div class="flex flex-wrap gap-2 text-sm">
+        <a href="{{ url_for('dashboard') }}" class="px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20">Dashboard</a>
+        <a href="{{ url_for('customers') }}" class="px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20">Müşteriler</a>
+        <a href="{{ url_for('labels') }}" class="px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20">Barkod Üret</a>
+        <a href="{{ url_for('settings') }}" class="px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20">Firma Ayarları</a>
+        <a href="{{ url_for('logout') }}" class="px-3 py-1.5 rounded-lg bg-red-500/80 hover:bg-red-500">Çıkış</a>
+      </div>
+    </div>
+  </nav>
+  {% endif %}
+
+  <main class="max-w-7xl mx-auto p-4 lg:p-6">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="space-y-2 mb-5">
+          {% for category, message in messages %}
+            <div class="rounded-xl border px-4 py-3 text-sm shadow-sm {% if category == 'success' %}bg-emerald-50 border-emerald-200 text-emerald-800{% elif category == 'danger' %}bg-red-50 border-red-200 text-red-800{% else %}bg-amber-50 border-amber-200 text-amber-800{% endif %}">{{ message }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>

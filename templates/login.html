@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="min-h-[82vh] grid lg:grid-cols-2 gap-5 items-stretch">
+  <section class="hidden lg:flex rounded-3xl overflow-hidden shadow-soft bg-gradient-to-br from-brand-900 via-brand-700 to-slate-700 text-white p-10 flex-col justify-between">
+    <div>
+      <p class="uppercase tracking-[0.3em] text-xs text-slate-300 mb-3">Premium Kurumsal Sistem</p>
+      <h1 class="text-4xl font-bold leading-tight">Yangın Söndürücü
+        <br>Etiket & Barkod Yönetimi</h1>
+      <p class="mt-4 text-slate-200">Müşteri, etiket üretim, QR doğrulama ve operasyon takibini tek panelde yönetin.</p>
+    </div>
+    <div class="rounded-2xl bg-white/10 p-5 border border-white/20">
+      <p class="text-sm text-slate-200">URL Prefix Desteği</p>
+      <p class="font-semibold">{{ base_path }}/login</p>
+    </div>
+  </section>
+
+  <section class="bg-white rounded-3xl shadow-soft p-6 md:p-8 self-center max-w-xl w-full mx-auto border border-slate-200">
+    <div class="flex items-center gap-4 mb-6">
+      {% if settings.company_logo_url %}
+      <img src="{{ settings.company_logo_url }}" alt="Firma logosu" class="h-14 w-14 object-contain rounded-xl border border-slate-200 p-1 bg-white">
+      {% else %}
+      <div class="h-14 w-14 rounded-xl bg-brand-900 text-white grid place-items-center font-bold text-lg">AY</div>
+      {% endif %}
+      <div>
+        <p class="text-xs uppercase text-slate-500">Hoş geldiniz</p>
+        <h2 class="text-2xl font-bold">{{ settings.company_name or 'Atex Yangın' }}</h2>
+      </div>
+    </div>
+
+    <form method="post" class="space-y-4">
+      <div>
+        <label class="text-sm text-slate-600">Kullanıcı adı</label>
+        <input name="username" class="mt-1 w-full border border-slate-300 rounded-xl px-3 py-2.5 focus:ring-2 focus:ring-brand-700/40 outline-none" required>
+      </div>
+      <div>
+        <label class="text-sm text-slate-600">Şifre</label>
+        <input name="password" type="password" class="mt-1 w-full border border-slate-300 rounded-xl px-3 py-2.5 focus:ring-2 focus:ring-brand-700/40 outline-none" required>
+      </div>
+      <button class="w-full rounded-xl bg-gradient-to-r from-brand-900 to-brand-700 text-white py-2.5 font-medium hover:opacity-95">Giriş Yap</button>
+    </form>
+  </section>
+</div>
+{% endblock %}

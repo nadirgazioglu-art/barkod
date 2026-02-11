@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="max-w-2xl mx-auto bg-white p-6 rounded shadow">
+{% if label %}
+  <h1 class="text-xl font-bold text-emerald-700">Etiket Doğrulandı</h1>
+  <p class="text-sm text-slate-500 mb-3">Bu etiket sistemde kayıtlıdır.</p>
+  <div class="grid md:grid-cols-2 gap-2 text-sm">
+    <div><b>Müşteri:</b> {{ label.customer_name }}</div>
+    <div><b>Seri No:</b> {{ label.serial_no }}</div>
+    <div><b>İmalat:</b> {{ label.manufacture_date }}</div>
+    <div><b>Üretici:</b> {{ label.manufacturer }}</div>
+    <div><b>Dolum:</b> {{ label.fill_date }}</div>
+    <div><b>Basınç Test:</b> {{ label.pressure_test_date }}</div>
+    <div><b>Sonraki Test:</b> {{ label.next_test_date }}</div>
+    <div><b>Gelecek Dolum:</b> {{ label.next_fill_date }}</div>
+    <div><b>Son Kullanma:</b> {{ label.expiry_date }}</div>
+    <div><b>TSE:</b> {{ label.tse_no }}</div>
+    <div><b>YSC Tipi:</b> {{ label.ysc_type }}</div>
+  </div>
+  <img src="{{ build_qr_data(label.qr_token) }}" class="mt-4 w-32 h-32" alt="QR">
+{% else %}
+  <h1 class="text-xl font-bold text-red-700">Etiket bulunamadı</h1>
+  <p>Bu QR kod sistemde kayıtlı değil.</p>
+{% endif %}
+</div>
+{% endblock %}
